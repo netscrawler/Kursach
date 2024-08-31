@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Kursach
 {
-    abstract class Person:User
+    abstract class Person
     {
         public string Name { get; set; }
         public string Surname { get; set; }

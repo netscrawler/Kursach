@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace KursFront
 {
-    public partial class Login : Form
+    public partial class Pacients : Form
     {
-        public Login()
+        public Pacients()
         {
             InitializeComponent();
         }

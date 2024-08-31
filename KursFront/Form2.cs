@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace KursFront
 {
-    public partial class Register : Form
+    public partial class Form2 : Form
     {
-        public Register()
+        public Form2()
         {
             InitializeComponent();
         }
