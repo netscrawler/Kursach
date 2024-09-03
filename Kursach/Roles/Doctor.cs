@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,7 +14,7 @@ namespace Kursach
         Person Person { get; set; } = null!;
 
 
-        public void Add(string name, string surname, string lastname, DateOnly birthday, string email, string password)
+        public void Add(string name, string surname,string lastname, string email, DateOnly birthday, string password)
         {
             this.Person = new Person().Create(name,surname,lastname,birthday,email);
             this.User = new User().Register(this.Person.Email, password);

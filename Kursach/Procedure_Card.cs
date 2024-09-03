@@ -8,5 +8,9 @@ namespace Kursach
 {
     public class Procedure_Card : Entity_Sush
     {
+        public string[] Zhalobi { get; set; } = null!;
+        public ICollection<Disease> Diseases { get; set; } = new List<Disease>();
+       
+
     }
 }
