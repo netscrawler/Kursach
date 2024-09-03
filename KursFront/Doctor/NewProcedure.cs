@@ -8,11 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace KursFront
+namespace KursFront.Doctor
 {
-    public partial class Form2 : Form
+    public partial class NewProcedure : Form
     {
-        public Form2()
+        public NewProcedure()
         {
             InitializeComponent();
         }

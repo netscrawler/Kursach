@@ -8,11 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace KursFront
+namespace KursFront.nurse
 {
-    public partial class PacientRegister : Form
+    public partial class ProcedureCheck : Form
     {
-        public PacientRegister()
+        public ProcedureCheck()
         {
             InitializeComponent();
         }

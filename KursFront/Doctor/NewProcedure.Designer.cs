@@ -1,6 +1,6 @@
-﻿namespace KursFront
+﻿namespace KursFront.Doctor
 {
-    partial class PacientRegister
+    partial class NewProcedure
     {
         /// <summary>
         /// Required designer variable.
@@ -31,7 +31,7 @@
             this.components = new System.ComponentModel.Container();
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Text = "PacientRegister";
+            this.Text = "NewProcedure";
         }
 
         #endregion

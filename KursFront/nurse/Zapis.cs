@@ -8,11 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace KursFront
+namespace KursFront.nurse
 {
-    public partial class Pacients : Form
+    public partial class Zapis : Form
     {
-        public Pacients()
+        public Zapis()
         {
             InitializeComponent();
         }
