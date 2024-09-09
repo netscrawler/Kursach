@@ -4,43 +4,35 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Kursach
+namespace Kursach.Roles
 {
-    public class User:Entity_Sush
+    public class User
     {
         public string Login { get; set; }
-
         public byte[] Password { get; set; } = null!;
 
 
-
-        public string Logining(string login, string password)
+        public bool Logining(string login, string password)
         {
 
             if ((this.Login == login) & EqualPass(GetHash(password), this.Password))
             {
-                return "Succes";
+                return true;
             }
-            return "User not found";
+            return false;
         }
 
 
-        public User Register(string login, string password)
+        public void Register(string login, string password)
         {
             if (!string.IsNullOrEmpty(login))
             {
                 this.Login = login;
                 this.Password = GetHash(password);
-                return this;
             }
-            else
-            {
-                return null;
-            }
-
         }
 
-        private byte[] GetHash(string password)
+        public byte[] GetHash(string password)
         {
             byte[] bPass;
             byte[] passHash;

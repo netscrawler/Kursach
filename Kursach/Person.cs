@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+﻿using Kursach.Roles;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,34 +16,23 @@ namespace Kursach
         public string LastName { get; set; } = null!;
         public DateOnly Birthday { get; set; }
         public string Email { get; set; }
+        public UInt64 Snils { get; set; }
+        public UInt64 Phone { get; set; }
 
 
-        public void Add(string name,string surname,string lastname,DateOnly birthday,string email)
+
+        
+        public virtual void Add(string name, string surname, string lastname, string email, DateOnly birthday, string password, UInt64 snils, UInt64 phone, User user)
         {
             this.Name = name;
             this.Surname = surname;
-            this.LastName = lastname;
             this.Birthday = birthday;
+            this.Id = Guid.NewGuid();
             this.Email = email;
-
-        }
-        public Person Create(string name, string surname, string lastname, DateOnly birthday, string email)
-        {
-            this.Name = name;
-            this.Surname = surname;
             this.LastName = lastname;
-            this.Birthday = birthday;
+            this.Phone = phone;
             this.Email = email;
-            return this;
-
         }
-
-
-
-
-
-
-
-
     }
-}
+ }
+

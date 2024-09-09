@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Kursach.Roles;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,17 +7,19 @@ using System.Threading.Tasks;
 
 namespace Kursach
 {
-    public class Nurse : Entity_Sush
+    public class Nurse : Person
     {
-        User User { get; set; } = null!;
-        Person Person { get; set; } = null!;
+        public User User { get; set; }
 
-
-        public void Add(string name, string surname, string lastname, DateOnly birthday, string email, string password)
+        public override void Add(string name, string surname, string lastname, string email, DateOnly birthday, string password, UInt64 snils, UInt64 phone, User user)
         {
-            this.Person = new Person().Create(name, surname, lastname, birthday, email);
-            this.User = new User().Register(this.Person.Email, password);
-
+            this.Name = name;
+            this.Surname = surname;
+            this.Birthday = birthday;
+            this.Id = Guid.NewGuid();
+            this.Email = email;
+            this.LastName = lastname;
+            this.User = user;
         }
     }
 }

@@ -6,15 +6,15 @@ using System.Threading.Tasks;
 
 namespace Kursach
 {
-    internal class Procedures_History:Entity_Sush
+    public class Procedures_History:Entity_Sush
     {
-        Procedure procedure {  get; set; }
-        DateTime date { get; set; }
+        DateTime Date { get; set; }
+        public ICollection<Procedure> Procedures { get; set; }=new List<Procedure>()
+        public Procedure_Card Card { get; set; }
 
         public void Add(Procedure procedure, DateTime date)
         {
-            this.procedure = procedure;
-            this.date = date;
+            this.Date = date;
         }
     }
 }

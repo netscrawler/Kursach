@@ -9,7 +9,12 @@ namespace Kursach
     public class Disease:Entity_Sush
     {
         public string Name { get; set; }
-        public ICollection<Procedure_Card> Procedures { get; set; } = new List<Procedure_Card>();
+        public ICollection<Procedure> Procedures { get; set; } = new List<Procedure>();
+
+        public void Add(string name)
+        {
+            this.Name = name;
+        }
     }
 
 }

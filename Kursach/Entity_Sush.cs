@@ -11,9 +11,10 @@ namespace Kursach
     {
         public Guid Id { get; set; }
 
-        public void Add()
+        public virtual void Add()
         {
             this.Id = Guid.NewGuid();
+
         }
     }
 

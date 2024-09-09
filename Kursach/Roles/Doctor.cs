@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Kursach.Roles;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -8,16 +9,19 @@ using System.Xml.Linq;
 
 namespace Kursach
 {
-    public class Doctor:Entity_Sush
+    public class Doctor:Person
     {
-        User User { get; set; } = null!;
-        Person Person { get; set; } = null!;
+        public User User { get; set; }
 
-
-        public void Add(string name, string surname,string lastname, string email, DateOnly birthday, string password)
+        public override void Add(string name, string surname, string lastname, string email, DateOnly birthday, string password, UInt64 snils, UInt64 phone, User u)
         {
-            this.Person = new Person().Create(name,surname,lastname,birthday,email);
-            this.User = new User().Register(this.Person.Email, password);
+            this.Name = name;
+            this.Surname = surname;
+            this.Birthday = birthday;
+            this.Id = Guid.NewGuid();
+            this.Email = email;
+            this.LastName = lastname;
+            this.User = u;
 
         }
     }
