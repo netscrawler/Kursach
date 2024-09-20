@@ -9,6 +9,7 @@ namespace Kursach
 {
     public class Nurse : Person
     {
+        public int UserId { get; set; }
         public User User { get; set; }
 
         public override void Add(string name, string surname, string lastname, string email, DateOnly birthday, string password, UInt64 snils, UInt64 phone, User user)

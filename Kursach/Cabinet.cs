@@ -9,10 +9,10 @@ namespace Kursach
 {
     public class Cabinet : Entity_Sush
     {
-        string Number { get; set; } = null!;
-        TimeOnly Open {  get; set; }
-        TimeOnly Close { get; set; }
-        string Weekend { get; set; }
+        public string Number { get; set; } = null!;
+        public TimeOnly Open {  get; set; }
+        public TimeOnly Close { get; set; }
+        public string Weekend { get; set; }
 
 
 

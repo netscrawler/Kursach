@@ -8,8 +8,8 @@ namespace Kursach
 {
     public class Procedure:Entity_Sush
     {
-        string Name { get; set; }
-        TimeOnly Length { get; set; }
+        public string Name { get; set; }
+        public TimeOnly Length { get; set; }
 
         public void Add(string name, TimeOnly length)
         {
