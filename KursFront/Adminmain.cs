@@ -1,4 +1,5 @@
-﻿using System;
+﻿using KursFront.nurse;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -8,28 +9,25 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace KursFront.Doctor
+namespace KursFront
 {
-    public partial class CreatePacient : Form
+    public partial class Adminmain : Form
     {
-        public CreatePacient()
+        public Adminmain()
         {
             InitializeComponent();
         }
 
-        private void toolStripContainer1_ContentPanel_Load(object sender, EventArgs e)
+        private void button1_Click(object sender, EventArgs e)
         {
 
+            Cabinetform cabinetform = new Cabinetform();
+            cabinetform.ShowDialog(this);
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            Close();
-        }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            Close();
         }
     }
 }

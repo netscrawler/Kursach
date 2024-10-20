@@ -12,13 +12,18 @@ namespace Kursach
         public ICollection<Disease> Diseases { get; set; } = new List<Disease>();
         public ICollection<Procedures_History> Procedures_History { get; set; }= new List<Procedures_History>();
         public Pacient Pacient { get; set; }
-        public Doctor Doctor { get; set; }
+        public Doctor Doctor { get; set; } =null!;
 
         public void Add(string[] Zhalobi)
         {
             this.Zhalobi = Zhalobi;
         }
-       
+        public void New(string[] Zhalobi, Pacient pacient, Doctor doctor)
+        {
+            this.Zhalobi = Zhalobi;
+            this.Pacient = pacient;
+            this.Doctor = doctor;
+        }
 
     }
 }

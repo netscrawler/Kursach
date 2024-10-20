@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Kursach;
+using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -15,15 +17,23 @@ namespace KursFront.nurse
         public NurseMain()
         {
             InitializeComponent();
+            LoadData();
+        }
+
+        private void LoadData(string searchQuery = "")
+        {
+            using (var context = new Ctx())
+            {
+                var procedureCards = context.procedurecards.ToList();
+                dataGridView1.DataSource = procedureCards;
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             ProcedureCheck procedureCheck = new ProcedureCheck();
             procedureCheck.ShowDialog(this);
-            listBox2 = new ListBox();
-            listBox2.Refresh();
-           
+
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -34,7 +44,12 @@ namespace KursFront.nurse
 
         private void listBox2_SelectedIndexChanged(object sender, EventArgs e)
         {
-            
+
+
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
 
         }
     }

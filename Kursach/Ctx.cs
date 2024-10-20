@@ -1,4 +1,4 @@
-﻿using Kursach.Roles;
+﻿using Kursach;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System;
@@ -22,11 +22,13 @@ namespace Kursach
         public DbSet<Disease> diseases { get; set; }
         public DbSet<Pacient> pacients { get; set; }
         public DbSet<Procedure> procedures { get; set; }
-        public DbSet<Procedure_Card> procedure_Cards { get; set; }
-        public DbSet<Procedures_History> procedures_Histories { get; set; }
+        public DbSet<Procedure_Card> procedurecards { get; set; }
+        public DbSet<Procedures_History> procedureshistories { get; set; }
         public DbSet<Admin> admins { get; set; }
         public DbSet<Doctor> doctors { get; set; }
         public DbSet<Nurse> nurses { get; set; }
+        public DbSet<User> users { get; set; }
+
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
@@ -64,13 +66,16 @@ namespace Kursach
                 entity.HasKey(e => e.Id);
                 entity.HasOne(u => u.Admin)
                     .WithOne(a => a.User)
-                    .HasForeignKey<Admin>(a => a.Id);
+                    .HasForeignKey<Admin>(a => a.Id)
+                    .IsRequired(false);
                 entity.HasOne(u => u.Doctor)
                     .WithOne(d => d.User)
-                    .HasForeignKey<Doctor>(d => d.Id);
+                    .HasForeignKey<Doctor>(d => d.Id)
+                    .IsRequired(false);
                 entity.HasOne(u => u.Nurse)
                     .WithOne(n => n.User)
-                    .HasForeignKey<Nurse>(n => n.Id);
+                    .HasForeignKey<Nurse>(n => n.Id)
+                    .IsRequired(false);
             });
             modelBuilder.Entity<Doctor>(entity =>
             {
@@ -82,7 +87,7 @@ namespace Kursach
                 entity.Property(e => e.Email).IsRequired();
                 entity.Property(e => e.Snils).IsRequired();
                 entity.Property(e => e.Phone).IsRequired();
-                entity.HasOne(e => e.User).WithOne().IsRequired();
+                entity.HasOne(e => e.User).WithOne().IsRequired(false);
             });
             modelBuilder.Entity<Nurse>(entity =>
             {
@@ -94,7 +99,7 @@ namespace Kursach
                 entity.Property(e => e.Email).IsRequired();
                 entity.Property(e => e.Snils).IsRequired();
                 entity.Property(e => e.Phone).IsRequired();
-                entity.HasOne(e => e.User).WithOne().IsRequired();
+                entity.HasOne(e => e.User).WithOne().IsRequired(false);
             });
             modelBuilder.Entity<Admin>(entity =>
             {
@@ -106,7 +111,7 @@ namespace Kursach
                 entity.Property(e => e.Email).IsRequired();
                 entity.Property(e => e.Snils).IsRequired();
                 entity.Property(e => e.Phone).IsRequired();
-                entity.HasOne(e => e.User).WithOne().IsRequired();
+                entity.HasOne(e => e.User).WithOne().IsRequired(false);
             });
             modelBuilder.Entity<Pacient>(entity =>
             {
@@ -118,7 +123,7 @@ namespace Kursach
                 entity.Property(e => e.Email).IsRequired();
                 entity.Property(e => e.Snils).IsRequired();
                 entity.Property(e => e.Phone).IsRequired();
-                entity.HasMany(e => e.Procedure_Cards).WithOne().IsRequired();
+                entity.HasMany(e => e.ProcedureCards).WithOne().IsRequired();
             });
             modelBuilder.Entity<Procedure_Card>(entity =>
             {
@@ -126,8 +131,8 @@ namespace Kursach
                 entity.Property(e => e.Zhalobi).IsRequired();
                 entity.HasMany(e => e.Diseases).WithMany();
                 entity.HasMany(e => e.Procedures_History).WithOne(e => e.Card).IsRequired();
-                entity.HasOne(e => e.Pacient).WithMany(e => e.Procedure_Cards).IsRequired();
-                entity.HasOne(e => e.Doctor).WithMany().IsRequired();
+                entity.HasOne(e => e.Pacient).WithMany(e => e.ProcedureCards).IsRequired();
+                entity.HasOne(e => e.Doctor).WithMany().IsRequired(false);
             });
 
             // Настройка модели для класса Procedures_History

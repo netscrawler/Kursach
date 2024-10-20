@@ -1,5 +1,6 @@
-﻿using Kursach.Roles;
+﻿using Kursach;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Infrastructure.Internal;
 using System;
 using System.Collections.Generic;
 using System.Linq;

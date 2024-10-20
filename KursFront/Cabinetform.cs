@@ -8,11 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace KursFront.Doctor
+namespace KursFront
 {
-    public partial class DoctorMain : Form
+    public partial class Cabinetform : Form
     {
-        public DoctorMain()
+        public Cabinetform()
         {
             InitializeComponent();
         }
@@ -20,15 +20,21 @@ namespace KursFront.Doctor
         private void button1_Click(object sender, EventArgs e)
         {
 
-            CreatePacient createPacient = new CreatePacient();
-            createPacient.ShowDialog();
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
 
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
         {
-            NewProcedure createProcedure = new NewProcedure();
-            createProcedure.ShowDialog();
+
+        }
+
+        private void dateTimePicker1_ValueChanged_1(object sender, EventArgs e)
+        {
+
         }
     }
 }

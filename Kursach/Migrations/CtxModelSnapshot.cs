@@ -198,10 +198,13 @@ namespace Kursach.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("integer");
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("UserId")
+                        .IsUnique();
 
                     b.ToTable("nurses");
                 });
@@ -282,7 +285,7 @@ namespace Kursach.Migrations
 
                     b.HasIndex("PacientId");
 
-                    b.ToTable("procedure_Cards");
+                    b.ToTable("procedurecards");
                 });
 
             modelBuilder.Entity("Kursach.Procedures_History", b =>
@@ -301,27 +304,24 @@ namespace Kursach.Migrations
 
                     b.HasIndex("CardId");
 
-                    b.ToTable("procedures_Histories");
+                    b.ToTable("procedureshistories");
                 });
 
-            modelBuilder.Entity("Kursach.Roles.User", b =>
+            modelBuilder.Entity("Kursach.User", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<Guid>("AdminId")
+                    b.Property<Guid?>("AdminId")
                         .HasColumnType("uuid");
 
-                    b.Property<Guid>("DoctorId")
+                    b.Property<Guid?>("DoctorId")
                         .HasColumnType("uuid");
 
                     b.Property<string>("Login")
                         .IsRequired()
                         .HasColumnType("text");
-
-                    b.Property<Guid>("NurseId")
-                        .HasColumnType("uuid");
 
                     b.Property<byte[]>("Password")
                         .IsRequired()
@@ -333,9 +333,7 @@ namespace Kursach.Migrations
 
                     b.HasIndex("DoctorId");
 
-                    b.HasIndex("NurseId");
-
-                    b.ToTable("User");
+                    b.ToTable("users");
                 });
 
             modelBuilder.Entity("ProcedureProcedures_History", b =>
@@ -385,31 +383,31 @@ namespace Kursach.Migrations
 
             modelBuilder.Entity("Kursach.Admin", b =>
                 {
-                    b.HasOne("Kursach.Roles.User", "User")
+                    b.HasOne("Kursach.User", "User")
                         .WithOne()
-                        .HasForeignKey("Kursach.Admin", "Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("Kursach.Admin", "Id");
 
                     b.Navigation("User");
                 });
 
             modelBuilder.Entity("Kursach.Doctor", b =>
                 {
-                    b.HasOne("Kursach.Roles.User", "User")
+                    b.HasOne("Kursach.User", "User")
                         .WithOne()
-                        .HasForeignKey("Kursach.Doctor", "Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("Kursach.Doctor", "Id");
 
                     b.Navigation("User");
                 });
 
             modelBuilder.Entity("Kursach.Nurse", b =>
                 {
-                    b.HasOne("Kursach.Roles.User", "User")
+                    b.HasOne("Kursach.User", "User")
                         .WithOne()
-                        .HasForeignKey("Kursach.Nurse", "Id")
+                        .HasForeignKey("Kursach.Nurse", "Id");
+
+                    b.HasOne("Kursach.User", null)
+                        .WithOne("Nurse")
+                        .HasForeignKey("Kursach.Nurse", "UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -420,12 +418,10 @@ namespace Kursach.Migrations
                 {
                     b.HasOne("Kursach.Doctor", "Doctor")
                         .WithMany()
-                        .HasForeignKey("DoctorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("DoctorId");
 
                     b.HasOne("Kursach.Pacient", "Pacient")
-                        .WithMany("Procedure_Cards")
+                        .WithMany("ProcedureCards")
                         .HasForeignKey("PacientId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -446,31 +442,19 @@ namespace Kursach.Migrations
                     b.Navigation("Card");
                 });
 
-            modelBuilder.Entity("Kursach.Roles.User", b =>
+            modelBuilder.Entity("Kursach.User", b =>
                 {
                     b.HasOne("Kursach.Admin", "Admin")
                         .WithMany()
-                        .HasForeignKey("AdminId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("AdminId");
 
                     b.HasOne("Kursach.Doctor", "Doctor")
                         .WithMany()
-                        .HasForeignKey("DoctorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Kursach.Nurse", "Nurse")
-                        .WithMany()
-                        .HasForeignKey("NurseId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("DoctorId");
 
                     b.Navigation("Admin");
 
                     b.Navigation("Doctor");
-
-                    b.Navigation("Nurse");
                 });
 
             modelBuilder.Entity("ProcedureProcedures_History", b =>
@@ -490,12 +474,17 @@ namespace Kursach.Migrations
 
             modelBuilder.Entity("Kursach.Pacient", b =>
                 {
-                    b.Navigation("Procedure_Cards");
+                    b.Navigation("ProcedureCards");
                 });
 
             modelBuilder.Entity("Kursach.Procedure_Card", b =>
                 {
                     b.Navigation("Procedures_History");
+                });
+
+            modelBuilder.Entity("Kursach.User", b =>
+                {
+                    b.Navigation("Nurse");
                 });
 #pragma warning restore 612, 618
         }

@@ -4,15 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Kursach.Roles
+namespace Kursach
 {
-    public class User:Entity_Sush
+    public class User : Entity_Sush
     {
         public string Login { get; set; }
         public byte[] Password { get; set; } = null!;
-        public Admin Admin { get; set; }
-        public Doctor Doctor { get; set; }
-        public Nurse Nurse { get; set; }
+        public Admin? Admin { get; set; }
+        public Doctor? Doctor { get; set; }
+        public Nurse? Nurse { get; set; }
 
 
         public bool Logining(string login, string password)

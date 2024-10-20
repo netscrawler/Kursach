@@ -150,7 +150,7 @@ namespace Kursach.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "procedure_Cards",
+                name: "procedurecards",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
@@ -160,15 +160,14 @@ namespace Kursach.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_procedure_Cards", x => x.Id);
+                    table.PrimaryKey("PK_procedurecards", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_procedure_Cards_doctors_DoctorId",
+                        name: "FK_procedurecards_doctors_DoctorId",
                         column: x => x.DoctorId,
                         principalTable: "doctors",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_procedure_Cards_pacients_PacientId",
+                        name: "FK_procedurecards_pacients_PacientId",
                         column: x => x.PacientId,
                         principalTable: "pacients",
                         principalColumn: "Id",
@@ -176,7 +175,32 @@ namespace Kursach.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "procedures_Histories",
+                name: "users",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Login = table.Column<string>(type: "text", nullable: false),
+                    Password = table.Column<byte[]>(type: "bytea", nullable: false),
+                    AdminId = table.Column<Guid>(type: "uuid", nullable: true),
+                    DoctorId = table.Column<Guid>(type: "uuid", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_users", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_users_admins_AdminId",
+                        column: x => x.AdminId,
+                        principalTable: "admins",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_users_doctors_DoctorId",
+                        column: x => x.DoctorId,
+                        principalTable: "doctors",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "procedureshistories",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
@@ -185,11 +209,41 @@ namespace Kursach.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_procedures_Histories", x => x.Id);
+                    table.PrimaryKey("PK_procedureshistories", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_procedures_Histories_procedure_Cards_CardId",
+                        name: "FK_procedureshistories_procedurecards_CardId",
                         column: x => x.CardId,
-                        principalTable: "procedure_Cards",
+                        principalTable: "procedurecards",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "nurses",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    UserId = table.Column<Guid>(type: "uuid", nullable: false),
+                    Name = table.Column<string>(type: "text", nullable: false),
+                    Surname = table.Column<string>(type: "text", nullable: false),
+                    LastName = table.Column<string>(type: "text", nullable: false),
+                    Birthday = table.Column<DateOnly>(type: "date", nullable: false),
+                    Email = table.Column<string>(type: "text", nullable: false),
+                    Snils = table.Column<decimal>(type: "numeric(20,0)", nullable: false),
+                    Phone = table.Column<decimal>(type: "numeric(20,0)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_nurses", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_nurses_users_Id",
+                        column: x => x.Id,
+                        principalTable: "users",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_nurses_users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -205,68 +259,15 @@ namespace Kursach.Migrations
                 {
                     table.PrimaryKey("PK_ProcedureProcedures_History", x => new { x.ProceduresId, x.Procedures_HistoryId });
                     table.ForeignKey(
-                        name: "FK_ProcedureProcedures_History_procedures_Histories_Procedures~",
-                        column: x => x.Procedures_HistoryId,
-                        principalTable: "procedures_Histories",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
                         name: "FK_ProcedureProcedures_History_procedures_ProceduresId",
                         column: x => x.ProceduresId,
                         principalTable: "procedures",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "nurses",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    UserId = table.Column<int>(type: "integer", nullable: false),
-                    Name = table.Column<string>(type: "text", nullable: false),
-                    Surname = table.Column<string>(type: "text", nullable: false),
-                    LastName = table.Column<string>(type: "text", nullable: false),
-                    Birthday = table.Column<DateOnly>(type: "date", nullable: false),
-                    Email = table.Column<string>(type: "text", nullable: false),
-                    Snils = table.Column<decimal>(type: "numeric(20,0)", nullable: false),
-                    Phone = table.Column<decimal>(type: "numeric(20,0)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_nurses", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "User",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    Login = table.Column<string>(type: "text", nullable: false),
-                    Password = table.Column<byte[]>(type: "bytea", nullable: false),
-                    AdminId = table.Column<Guid>(type: "uuid", nullable: false),
-                    DoctorId = table.Column<Guid>(type: "uuid", nullable: false),
-                    NurseId = table.Column<Guid>(type: "uuid", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_User", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_User_admins_AdminId",
-                        column: x => x.AdminId,
-                        principalTable: "admins",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_User_doctors_DoctorId",
-                        column: x => x.DoctorId,
-                        principalTable: "doctors",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_User_nurses_NurseId",
-                        column: x => x.NurseId,
-                        principalTable: "nurses",
+                        name: "FK_ProcedureProcedures_History_procedureshistories_Procedures_~",
+                        column: x => x.Procedures_HistoryId,
+                        principalTable: "procedureshistories",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -282,13 +283,19 @@ namespace Kursach.Migrations
                 column: "Procedure_CardId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_procedure_Cards_DoctorId",
-                table: "procedure_Cards",
+                name: "IX_nurses_UserId",
+                table: "nurses",
+                column: "UserId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_procedurecards_DoctorId",
+                table: "procedurecards",
                 column: "DoctorId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_procedure_Cards_PacientId",
-                table: "procedure_Cards",
+                name: "IX_procedurecards_PacientId",
+                table: "procedurecards",
                 column: "PacientId");
 
             migrationBuilder.CreateIndex(
@@ -297,72 +304,53 @@ namespace Kursach.Migrations
                 column: "Procedures_HistoryId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_procedures_Histories_CardId",
-                table: "procedures_Histories",
+                name: "IX_procedureshistories_CardId",
+                table: "procedureshistories",
                 column: "CardId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_User_AdminId",
-                table: "User",
+                name: "IX_users_AdminId",
+                table: "users",
                 column: "AdminId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_User_DoctorId",
-                table: "User",
+                name: "IX_users_DoctorId",
+                table: "users",
                 column: "DoctorId");
 
-            migrationBuilder.CreateIndex(
-                name: "IX_User_NurseId",
-                table: "User",
-                column: "NurseId");
-
             migrationBuilder.AddForeignKey(
-                name: "FK_admins_User_Id",
+                name: "FK_admins_users_Id",
                 table: "admins",
                 column: "Id",
-                principalTable: "User",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
+                principalTable: "users",
+                principalColumn: "Id");
 
             migrationBuilder.AddForeignKey(
-                name: "FK_DiseaseProcedure_Card_procedure_Cards_Procedure_CardId",
+                name: "FK_DiseaseProcedure_Card_procedurecards_Procedure_CardId",
                 table: "DiseaseProcedure_Card",
                 column: "Procedure_CardId",
-                principalTable: "procedure_Cards",
+                principalTable: "procedurecards",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.Cascade);
 
             migrationBuilder.AddForeignKey(
-                name: "FK_doctors_User_Id",
+                name: "FK_doctors_users_Id",
                 table: "doctors",
                 column: "Id",
-                principalTable: "User",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_nurses_User_Id",
-                table: "nurses",
-                column: "Id",
-                principalTable: "User",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
+                principalTable: "users",
+                principalColumn: "Id");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropForeignKey(
-                name: "FK_admins_User_Id",
+                name: "FK_admins_users_Id",
                 table: "admins");
 
             migrationBuilder.DropForeignKey(
-                name: "FK_doctors_User_Id",
+                name: "FK_doctors_users_Id",
                 table: "doctors");
-
-            migrationBuilder.DropForeignKey(
-                name: "FK_nurses_User_Id",
-                table: "nurses");
 
             migrationBuilder.DropTable(
                 name: "cabinets");
@@ -374,34 +362,34 @@ namespace Kursach.Migrations
                 name: "DiseaseProcedure_Card");
 
             migrationBuilder.DropTable(
+                name: "nurses");
+
+            migrationBuilder.DropTable(
                 name: "ProcedureProcedures_History");
 
             migrationBuilder.DropTable(
                 name: "diseases");
 
             migrationBuilder.DropTable(
-                name: "procedures_Histories");
-
-            migrationBuilder.DropTable(
                 name: "procedures");
 
             migrationBuilder.DropTable(
-                name: "procedure_Cards");
+                name: "procedureshistories");
+
+            migrationBuilder.DropTable(
+                name: "procedurecards");
 
             migrationBuilder.DropTable(
                 name: "pacients");
 
             migrationBuilder.DropTable(
-                name: "User");
+                name: "users");
 
             migrationBuilder.DropTable(
                 name: "admins");
 
             migrationBuilder.DropTable(
                 name: "doctors");
-
-            migrationBuilder.DropTable(
-                name: "nurses");
         }
     }
 }

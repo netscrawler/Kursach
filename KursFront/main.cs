@@ -30,13 +30,29 @@ namespace KursFront
             //PacientRegister PacientRegister = new PacientRegister();
             //PacientRegister.ShowDialog();
             DoctorMain doctorMain = new DoctorMain();
-            doctorMain.ShowDialog();
+            doctorMain.ShowDialog(this);
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
             NurseMain nurseMain = new NurseMain();
-            nurseMain.ShowDialog();
+            nurseMain.ShowDialog(this);
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            Adminmain adminmain = new Adminmain();
+            adminmain.ShowDialog(this);
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox2_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
