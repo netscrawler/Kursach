@@ -50,20 +50,18 @@ namespace KursFront.Doctor
             zhalobiBindingSource = new BindingSource(components);
             procedureCardBindingSource = new BindingSource(components);
             zhalobiBindingSource1 = new BindingSource(components);
-            dataGridView2 = new DataGridView();
-            diseasesDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            proceduresHistoryDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            pacientDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            doctorDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            idDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            procedureCardBindingSource2 = new BindingSource(components);
+            zhalobiBindingSource2 = new BindingSource(components);
             procedureCardBindingSource1 = new BindingSource(components);
+            listBox1 = new ListBox();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pacientBindingSource).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pacientBindingSource1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)zhalobiBindingSource).BeginInit();
             ((System.ComponentModel.ISupportInitialize)procedureCardBindingSource).BeginInit();
             ((System.ComponentModel.ISupportInitialize)zhalobiBindingSource1).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)dataGridView2).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)procedureCardBindingSource2).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)zhalobiBindingSource2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)procedureCardBindingSource1).BeginInit();
             SuspendLayout();
             // 
@@ -191,66 +189,36 @@ namespace KursFront.Doctor
             zhalobiBindingSource1.DataMember = "Zhalobi";
             zhalobiBindingSource1.DataSource = procedureCardBindingSource;
             // 
-            // dataGridView2
+            // procedureCardBindingSource2
             // 
-            dataGridView2.AllowUserToAddRows = false;
-            dataGridView2.AllowUserToDeleteRows = false;
-            dataGridView2.AutoGenerateColumns = false;
-            dataGridView2.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView2.Columns.AddRange(new DataGridViewColumn[] { diseasesDataGridViewTextBoxColumn, proceduresHistoryDataGridViewTextBoxColumn, pacientDataGridViewTextBoxColumn, doctorDataGridViewTextBoxColumn, idDataGridViewTextBoxColumn });
-            dataGridView2.DataSource = procedureCardBindingSource1;
-            dataGridView2.Location = new Point(763, 12);
-            dataGridView2.Name = "dataGridView2";
-            dataGridView2.ReadOnly = true;
-            dataGridView2.Size = new Size(519, 426);
-            dataGridView2.TabIndex = 7;
-            dataGridView2.CellContentClick += dataGridView2_CellContentClick_2;
+            procedureCardBindingSource2.DataSource = typeof(Kursach.Procedure_Card);
             // 
-            // diseasesDataGridViewTextBoxColumn
+            // zhalobiBindingSource2
             // 
-            diseasesDataGridViewTextBoxColumn.DataPropertyName = "Diseases";
-            diseasesDataGridViewTextBoxColumn.HeaderText = "Diseases";
-            diseasesDataGridViewTextBoxColumn.Name = "diseasesDataGridViewTextBoxColumn";
-            diseasesDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // proceduresHistoryDataGridViewTextBoxColumn
-            // 
-            proceduresHistoryDataGridViewTextBoxColumn.DataPropertyName = "Procedures_History";
-            proceduresHistoryDataGridViewTextBoxColumn.HeaderText = "Procedures_History";
-            proceduresHistoryDataGridViewTextBoxColumn.Name = "proceduresHistoryDataGridViewTextBoxColumn";
-            proceduresHistoryDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // pacientDataGridViewTextBoxColumn
-            // 
-            pacientDataGridViewTextBoxColumn.DataPropertyName = "Pacient";
-            pacientDataGridViewTextBoxColumn.HeaderText = "Pacient";
-            pacientDataGridViewTextBoxColumn.Name = "pacientDataGridViewTextBoxColumn";
-            pacientDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // doctorDataGridViewTextBoxColumn
-            // 
-            doctorDataGridViewTextBoxColumn.DataPropertyName = "Doctor";
-            doctorDataGridViewTextBoxColumn.HeaderText = "Doctor";
-            doctorDataGridViewTextBoxColumn.Name = "doctorDataGridViewTextBoxColumn";
-            doctorDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // idDataGridViewTextBoxColumn
-            // 
-            idDataGridViewTextBoxColumn.DataPropertyName = "Id";
-            idDataGridViewTextBoxColumn.HeaderText = "Id";
-            idDataGridViewTextBoxColumn.Name = "idDataGridViewTextBoxColumn";
-            idDataGridViewTextBoxColumn.ReadOnly = true;
+            zhalobiBindingSource2.DataMember = "Zhalobi";
+            zhalobiBindingSource2.DataSource = procedureCardBindingSource1;
             // 
             // procedureCardBindingSource1
             // 
             procedureCardBindingSource1.DataSource = typeof(Kursach.Procedure_Card);
+            // 
+            // listBox1
+            // 
+            listBox1.FormattingEnabled = true;
+            listBox1.HorizontalScrollbar = true;
+            listBox1.ItemHeight = 15;
+            listBox1.Location = new Point(763, 12);
+            listBox1.Name = "listBox1";
+            listBox1.Size = new Size(503, 424);
+            listBox1.TabIndex = 8;
+            listBox1.SelectedIndexChanged += listBox1_SelectedIndexChanged;
             // 
             // DoctorMain
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1451, 450);
-            Controls.Add(dataGridView2);
+            Controls.Add(listBox1);
             Controls.Add(button3);
             Controls.Add(textBox1);
             Controls.Add(dataGridView1);
@@ -264,7 +232,8 @@ namespace KursFront.Doctor
             ((System.ComponentModel.ISupportInitialize)zhalobiBindingSource).EndInit();
             ((System.ComponentModel.ISupportInitialize)procedureCardBindingSource).EndInit();
             ((System.ComponentModel.ISupportInitialize)zhalobiBindingSource1).EndInit();
-            ((System.ComponentModel.ISupportInitialize)dataGridView2).EndInit();
+            ((System.ComponentModel.ISupportInitialize)procedureCardBindingSource2).EndInit();
+            ((System.ComponentModel.ISupportInitialize)zhalobiBindingSource2).EndInit();
             ((System.ComponentModel.ISupportInitialize)procedureCardBindingSource1).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -272,17 +241,12 @@ namespace KursFront.Doctor
 
         private void dataGridView2_CellContentClick_2(object sender, DataGridViewCellEventArgs e)
         {
-            throw new NotImplementedException();
+
         }
 
         private void dataGridView2_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            // Example logic: Display the content of the clicked cell
-            if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
-            {
-                var cellValue = dataGridView2.Rows[e.RowIndex].Cells[e.ColumnIndex].Value;
-                MessageBox.Show($"Cell clicked: {cellValue}");
-            }
+            
         }
 
         #endregion
@@ -314,12 +278,9 @@ namespace KursFront.Doctor
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumn16;
         private DataGridViewTextBoxColumn idDataGridViewTextBoxColumn1;
         private BindingSource zhalobiBindingSource1;
-        private DataGridView dataGridView2;
-        private DataGridViewTextBoxColumn diseasesDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn proceduresHistoryDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn pacientDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn doctorDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn idDataGridViewTextBoxColumn;
         private BindingSource procedureCardBindingSource1;
+        private BindingSource zhalobiBindingSource2;
+        private BindingSource procedureCardBindingSource2;
+        private ListBox listBox1;
     }
 }

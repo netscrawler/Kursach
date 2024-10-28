@@ -46,6 +46,8 @@ namespace KursFront.Doctorn
             DateOnly birthDate = new DateOnly(dateTimePicker1.Value.Year, dateTimePicker1.Value.Month, dateTimePicker1.Value.Day);
 
             string[] Zhalobi = textBox3.Text.Split(',');
+            string[] Diseases = textBox5.Text.Split(',');
+
             //TODO: Доработать напильником
             // Создать нового пациента  
             Pacient newPacient = new Pacient();
@@ -60,7 +62,7 @@ namespace KursFront.Doctorn
 
 
             Procedure_Card procedure_Card = new Procedure_Card();
-            procedure_Card.New(Zhalobi, newPacient,doctor);
+            procedure_Card.New(Zhalobi, newPacient, doctor, Diseases);
 
             // Сохранить пациента в базу данных с использованием Entity Framework  
             using (var context = new Ctx())
@@ -122,6 +124,21 @@ namespace KursFront.Doctorn
         }
 
         private void textBox3_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void maskedTextBox4_MaskInputRejected(object sender, MaskInputRejectedEventArgs e)
+        {
+
+        }
+
+        private void textBox5_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox5_TextChanged_1(object sender, EventArgs e)
         {
 
         }

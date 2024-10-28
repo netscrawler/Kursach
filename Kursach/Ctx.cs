@@ -19,7 +19,6 @@ namespace Kursach
         }
 
         public DbSet<Cabinet> cabinets { get; set; }
-        public DbSet<Disease> diseases { get; set; }
         public DbSet<Pacient> pacients { get; set; }
         public DbSet<Procedure> procedures { get; set; }
         public DbSet<Procedure_Card> procedurecards { get; set; }
@@ -54,12 +53,6 @@ namespace Kursach
                 entity.Property(e => e.Open).IsRequired();
                 entity.Property(e => e.Close).IsRequired();
                 entity.Property(e => e.Weekend).IsRequired();
-            });
-            modelBuilder.Entity<Disease>(entity =>
-            {
-                entity.HasKey(e => e.Id);
-                entity.Property(e => e.Name).IsRequired();
-                entity.HasMany(e => e.Procedures).WithMany();
             });
             modelBuilder.Entity<User>(entity =>
             {
@@ -129,7 +122,6 @@ namespace Kursach
             {
                 entity.HasKey(e => e.Id);
                 entity.Property(e => e.Zhalobi).IsRequired();
-                entity.HasMany(e => e.Diseases).WithMany();
                 entity.HasMany(e => e.Procedures_History).WithOne(e => e.Card).IsRequired();
                 entity.HasOne(e => e.Pacient).WithMany(e => e.ProcedureCards).IsRequired();
                 entity.HasOne(e => e.Doctor).WithMany().IsRequired(false);

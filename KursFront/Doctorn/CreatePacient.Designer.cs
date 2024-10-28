@@ -48,12 +48,13 @@
             button2 = new Button();
             maskedTextBox3 = new MaskedTextBox();
             textBox3 = new TextBox();
+            textBox5 = new TextBox();
             ((System.ComponentModel.ISupportInitialize)numericUpDown1).BeginInit();
             SuspendLayout();
             // 
             // button1
             // 
-            button1.Location = new Point(275, 250);
+            button1.Location = new Point(853, 498);
             button1.Name = "button1";
             button1.Size = new Size(142, 34);
             button1.TabIndex = 0;
@@ -192,7 +193,7 @@
             // 
             // button2
             // 
-            button2.Location = new Point(116, 250);
+            button2.Location = new Point(694, 498);
             button2.Name = "button2";
             button2.Size = new Size(159, 34);
             button2.TabIndex = 19;
@@ -211,18 +212,28 @@
             // 
             // textBox3
             // 
-            textBox3.Location = new Point(575, 12);
+            textBox3.Location = new Point(116, 250);
             textBox3.Multiline = true;
             textBox3.Name = "textBox3";
-            textBox3.Size = new Size(213, 229);
+            textBox3.Size = new Size(307, 229);
             textBox3.TabIndex = 21;
             textBox3.TextChanged += textBox3_TextChanged;
+            // 
+            // textBox5
+            // 
+            textBox5.Location = new Point(444, 12);
+            textBox5.Multiline = true;
+            textBox5.Name = "textBox5";
+            textBox5.Size = new Size(307, 229);
+            textBox5.TabIndex = 22;
+            textBox5.TextChanged += textBox5_TextChanged_1;
             // 
             // CreatePacient
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(1007, 544);
+            Controls.Add(textBox5);
             Controls.Add(textBox3);
             Controls.Add(maskedTextBox3);
             Controls.Add(button2);
@@ -270,5 +281,6 @@
         private Button button2;
         private MaskedTextBox maskedTextBox3;
         private TextBox textBox3;
+        private TextBox textBox5;
     }
 }

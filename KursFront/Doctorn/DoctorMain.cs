@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using KursFront.Doctorn;
+using System.CodeDom;
 
 namespace KursFront.Doctor
 {
@@ -34,7 +35,8 @@ namespace KursFront.Doctor
                     // Загрузка процедурных карт, связанных с пациентами
                     var procedureCards = context.procedurecards
                         .ToList();
-                    dataGridView2.DataSource = procedureCards;
+                    listBox1.DataSource = procedureCards;
+                    listBox1.DisplayMember = "DisplayInfo";
                 }
             }
         }
@@ -48,7 +50,7 @@ namespace KursFront.Doctor
 
         private void button2_Click(object sender, EventArgs e)
         {
-            NewProcedure createProcedure = new NewProcedure();
+            CreateProcedure createProcedure = new CreateProcedure();
             createProcedure.ShowDialog();
             LoadData();
         }
@@ -69,6 +71,8 @@ namespace KursFront.Doctor
 
         }
 
-
+        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+        }
     }
 }

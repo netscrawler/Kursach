@@ -24,10 +24,34 @@ namespace KursFront.nurse
         {
             using (var context = new Ctx())
             {
-                var procedureCards = context.procedurecards.ToList();
-                dataGridView1.DataSource = procedureCards;
+                // Получаем всех пациентов с их процедурами и процедурами
+                var patientsData = context.pacients
+                    .Include(p => p.ProcedureCards) // Загружаем карты процедур
+                        .ThenInclude(pc => pc.Procedures) // Загружаем процедуры
+                    .ToList() // Загружаем все записи в память
+                    .SelectMany(patient => patient.ProcedureCards.SelectMany(pc => pc.Procedures.Select(p => new PatientCardViewModel
+                    {
+                        PatientName = patient.Name,
+                        PatientSurname = patient.Surname,
+                        PatientLastName = patient.LastName,
+                        PatientEmail = patient.Email,
+                        PatientBirthday = patient.Birthday,
+                        Patientphone = patient.Phone.ToString(), // Преобразуем в строку
+                        PatientPhoneNumber = patient.Phone,
+                        PatientSnils = patient.Snils,
+                        ProcedureCardId = pc.Id,
+                        ProcedureName = p.Name,
+                        ProcedureLength = p.Length
+                    })))
+                    .Distinct()
+                    .ToList();
+
+                // Привязка данных к DataGridView
+                dataGridView1.DataSource = patientsData;
+
             }
         }
+    
 
         private void button1_Click(object sender, EventArgs e)
         {
