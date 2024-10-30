@@ -43,6 +43,7 @@ namespace Kursach
                 entity.HasKey(e => e.Id);
                 entity.Property(e => e.Name).IsRequired();
                 entity.Property(e => e.Length).IsRequired();
+                entity.Property(e => e.Time).IsRequired();
             });
 
             // Настройка модели для класса Cabinet

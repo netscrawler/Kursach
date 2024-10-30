@@ -19,5 +19,6 @@ namespace Kursach
         public Guid ProcedureCardId { get; set; }
         public string ProcedureName { get; set; }
         public TimeOnly ProcedureLength { get; set; }
+        public DateTime ProcedureDate { get; set; }
     }
 }

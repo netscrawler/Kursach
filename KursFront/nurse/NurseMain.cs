@@ -18,40 +18,81 @@ namespace KursFront.nurse
         {
             InitializeComponent();
             LoadData();
+            dataGridView1.CellClick += DataGridView1_CellClick;
         }
 
         private void LoadData(string searchQuery = "")
         {
             using (var context = new Ctx())
             {
-                // Получаем всех пациентов с их процедурами и процедурами
+                // Получаем всех пациентов с их процедурами
                 var patientsData = context.pacients
                     .Include(p => p.ProcedureCards) // Загружаем карты процедур
                         .ThenInclude(pc => pc.Procedures) // Загружаем процедуры
                     .ToList() // Загружаем все записи в память
-                    .SelectMany(patient => patient.ProcedureCards.SelectMany(pc => pc.Procedures.Select(p => new PatientCardViewModel
+                    .SelectMany(patient => patient.ProcedureCards.Select(pc => new PatientCardViewModel
                     {
                         PatientName = patient.Name,
                         PatientSurname = patient.Surname,
                         PatientLastName = patient.LastName,
                         PatientEmail = patient.Email,
                         PatientBirthday = patient.Birthday,
-                        Patientphone = patient.Phone.ToString(), // Преобразуем в строку
-                        PatientPhoneNumber = patient.Phone,
                         PatientSnils = patient.Snils,
                         ProcedureCardId = pc.Id,
-                        ProcedureName = p.Name,
-                        ProcedureLength = p.Length
-                    })))
+                        // Объединяем названия процедур и их длительности в одну строку
+                        ProcedureName = string.Join(", ", pc.Procedures.Select(p => $"{p.Name} (Длительность: {p.Length}) (Дата: {p.Time})")),
+                     
+                    }))
                     .Distinct()
                     .ToList();
 
+                // Фильтрация данных по СНИЛСу, если задан поисковый запрос
+                if (!string.IsNullOrWhiteSpace(searchQuery) && ulong.TryParse(searchQuery, out ulong snilsQuery))
+                {
+                    patientsData = patientsData
+                        .Where(data => data.PatientSnils == snilsQuery) // Поиск по СНИЛСу
+                        .ToList();
+                }
+
                 // Привязка данных к DataGridView
                 dataGridView1.DataSource = patientsData;
-
+                foreach (DataGridViewColumn column in dataGridView1.Columns)
+                {
+                    Console.WriteLine(column.Name);
+                }
             }
         }
-    
+        // В вашем конструкторе или методе инициализации
+
+        private void DataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            // Проверяем, что клик был по валидной строке и столбцу
+            if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
+            {
+                // Получаем данные о пациенте из выбранной строки
+                var patient = (PatientCardViewModel)dataGridView1.Rows[e.RowIndex].DataBoundItem;
+
+                // Собираем информацию для отображения
+                var message = $"Имя: {patient.PatientName}\n" +
+                              $"Фамилия: {patient.PatientSurname}\n" +
+                              $"Отчество: {patient.PatientLastName}\n" +
+                              $"Email: {patient.PatientEmail}\n" +
+                              $"День рождения: {patient.PatientBirthday.ToShortDateString()}\n" +
+                              $"СНИЛС: {patient.PatientSnils}\n" +
+                              $"ID карты: {patient.ProcedureCardId}\n" +
+                              $"Процедуры: {patient.ProcedureName}";
+
+                // Отображаем сообщение с информацией о пациенте
+                MessageBox.Show(message, "Информация о пациенте", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+
+
+
+
+
+
 
         private void button1_Click(object sender, EventArgs e)
         {

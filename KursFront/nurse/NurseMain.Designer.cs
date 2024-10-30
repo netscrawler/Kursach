@@ -33,10 +33,10 @@
             button2 = new Button();
             comboBox1 = new ComboBox();
             dataGridView1 = new DataGridView();
-            Pacientt = new DataGridViewTextBoxColumn();
+            patientCardViewModelBindingSource = new BindingSource(components);
             procedureCardBindingSource = new BindingSource(components);
             zhalobiBindingSource = new BindingSource(components);
-            patientCardViewModelBindingSource = new BindingSource(components);
+            Pacientt = new DataGridViewTextBoxColumn();
             patientNameDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             patientSurnameDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             patientLastNameDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
@@ -47,11 +47,10 @@
             patientSnilsDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             procedureCardIdDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             procedureNameDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            procedureLengthDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)patientCardViewModelBindingSource).BeginInit();
             ((System.ComponentModel.ISupportInitialize)procedureCardBindingSource).BeginInit();
             ((System.ComponentModel.ISupportInitialize)zhalobiBindingSource).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)patientCardViewModelBindingSource).BeginInit();
             SuspendLayout();
             // 
             // button1
@@ -88,7 +87,7 @@
             dataGridView1.AllowUserToDeleteRows = false;
             dataGridView1.AutoGenerateColumns = false;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { Pacientt, patientNameDataGridViewTextBoxColumn, patientSurnameDataGridViewTextBoxColumn, patientLastNameDataGridViewTextBoxColumn, patientEmailDataGridViewTextBoxColumn, patientBirthdayDataGridViewTextBoxColumn, patientphoneDataGridViewTextBoxColumn, patientPhoneNumberDataGridViewTextBoxColumn, patientSnilsDataGridViewTextBoxColumn, procedureCardIdDataGridViewTextBoxColumn, procedureNameDataGridViewTextBoxColumn, procedureLengthDataGridViewTextBoxColumn });
+            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { Pacientt, patientNameDataGridViewTextBoxColumn, patientSurnameDataGridViewTextBoxColumn, patientLastNameDataGridViewTextBoxColumn, patientEmailDataGridViewTextBoxColumn, patientBirthdayDataGridViewTextBoxColumn, patientphoneDataGridViewTextBoxColumn, patientPhoneNumberDataGridViewTextBoxColumn, patientSnilsDataGridViewTextBoxColumn, procedureCardIdDataGridViewTextBoxColumn, procedureNameDataGridViewTextBoxColumn });
             dataGridView1.DataSource = patientCardViewModelBindingSource;
             dataGridView1.Location = new Point(12, 12);
             dataGridView1.Name = "dataGridView1";
@@ -96,10 +95,9 @@
             dataGridView1.TabIndex = 6;
             dataGridView1.CellContentClick += dataGridView1_CellContentClick;
             // 
-            // Pacientt
+            // patientCardViewModelBindingSource
             // 
-            Pacientt.HeaderText = "Pacient";
-            Pacientt.Name = "Pacientt";
+            patientCardViewModelBindingSource.DataSource = typeof(Kursach.PatientCardViewModel);
             // 
             // procedureCardBindingSource
             // 
@@ -110,9 +108,10 @@
             zhalobiBindingSource.DataMember = "Zhalobi";
             zhalobiBindingSource.DataSource = procedureCardBindingSource;
             // 
-            // patientCardViewModelBindingSource
+            // Pacientt
             // 
-            patientCardViewModelBindingSource.DataSource = typeof(Kursach.PatientCardViewModel);
+            Pacientt.HeaderText = "Pacient";
+            Pacientt.Name = "Pacientt";
             // 
             // patientNameDataGridViewTextBoxColumn
             // 
@@ -174,12 +173,6 @@
             procedureNameDataGridViewTextBoxColumn.HeaderText = "ProcedureName";
             procedureNameDataGridViewTextBoxColumn.Name = "procedureNameDataGridViewTextBoxColumn";
             // 
-            // procedureLengthDataGridViewTextBoxColumn
-            // 
-            procedureLengthDataGridViewTextBoxColumn.DataPropertyName = "ProcedureLength";
-            procedureLengthDataGridViewTextBoxColumn.HeaderText = "ProcedureLength";
-            procedureLengthDataGridViewTextBoxColumn.Name = "procedureLengthDataGridViewTextBoxColumn";
-            // 
             // NurseMain
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -192,9 +185,9 @@
             Name = "NurseMain";
             Text = "NurseMain";
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)patientCardViewModelBindingSource).EndInit();
             ((System.ComponentModel.ISupportInitialize)procedureCardBindingSource).EndInit();
             ((System.ComponentModel.ISupportInitialize)zhalobiBindingSource).EndInit();
-            ((System.ComponentModel.ISupportInitialize)patientCardViewModelBindingSource).EndInit();
             ResumeLayout(false);
         }
 
@@ -205,8 +198,9 @@
         private ComboBox comboBox1;
         private DataGridView dataGridView1;
         private BindingSource procedureCardBindingSource;
-        private DataGridViewTextBoxColumn Pacientt;
         private BindingSource zhalobiBindingSource;
+        private BindingSource patientCardViewModelBindingSource;
+        private DataGridViewTextBoxColumn Pacientt;
         private DataGridViewTextBoxColumn patientNameDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn patientSurnameDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn patientLastNameDataGridViewTextBoxColumn;
@@ -217,7 +211,5 @@
         private DataGridViewTextBoxColumn patientSnilsDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn procedureCardIdDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn procedureNameDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn procedureLengthDataGridViewTextBoxColumn;
-        private BindingSource patientCardViewModelBindingSource;
     }
 }
