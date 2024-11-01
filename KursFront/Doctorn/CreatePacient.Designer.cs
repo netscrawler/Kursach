@@ -49,16 +49,19 @@
             maskedTextBox3 = new MaskedTextBox();
             textBox3 = new TextBox();
             textBox5 = new TextBox();
+            label8 = new Label();
+            label9 = new Label();
+            label10 = new Label();
             ((System.ComponentModel.ISupportInitialize)numericUpDown1).BeginInit();
             SuspendLayout();
             // 
             // button1
             // 
-            button1.Location = new Point(853, 498);
+            button1.Location = new Point(309, 498);
             button1.Name = "button1";
             button1.Size = new Size(142, 34);
             button1.TabIndex = 0;
-            button1.Text = "Созранить";
+            button1.Text = "Сохранить";
             button1.UseVisualStyleBackColor = true;
             button1.Click += button1_Click;
             // 
@@ -175,7 +178,7 @@
             // 
             // maskedTextBox2
             // 
-            maskedTextBox2.Location = new Point(116, 192);
+            maskedTextBox2.Location = new Point(116, 221);
             maskedTextBox2.Name = "maskedTextBox2";
             maskedTextBox2.Size = new Size(307, 23);
             maskedTextBox2.TabIndex = 17;
@@ -193,7 +196,7 @@
             // 
             // button2
             // 
-            button2.Location = new Point(694, 498);
+            button2.Location = new Point(144, 498);
             button2.Name = "button2";
             button2.Size = new Size(159, 34);
             button2.TabIndex = 19;
@@ -203,7 +206,7 @@
             // 
             // maskedTextBox3
             // 
-            maskedTextBox3.Location = new Point(116, 221);
+            maskedTextBox3.Location = new Point(116, 192);
             maskedTextBox3.Name = "maskedTextBox3";
             maskedTextBox3.Size = new Size(307, 23);
             maskedTextBox3.TabIndex = 20;
@@ -212,27 +215,57 @@
             // 
             // textBox3
             // 
-            textBox3.Location = new Point(116, 250);
+            textBox3.Location = new Point(116, 342);
             textBox3.Multiline = true;
             textBox3.Name = "textBox3";
-            textBox3.Size = new Size(307, 229);
+            textBox3.Size = new Size(307, 84);
             textBox3.TabIndex = 21;
             textBox3.TextChanged += textBox3_TextChanged;
             // 
             // textBox5
             // 
-            textBox5.Location = new Point(444, 12);
+            textBox5.Location = new Point(116, 250);
             textBox5.Multiline = true;
             textBox5.Name = "textBox5";
-            textBox5.Size = new Size(307, 229);
+            textBox5.Size = new Size(307, 86);
             textBox5.TabIndex = 22;
             textBox5.TextChanged += textBox5_TextChanged_1;
+            // 
+            // label8
+            // 
+            label8.AutoSize = true;
+            label8.Location = new Point(72, 224);
+            label8.Name = "label8";
+            label8.Size = new Size(36, 15);
+            label8.TabIndex = 23;
+            label8.Text = "email";
+            // 
+            // label9
+            // 
+            label9.AutoSize = true;
+            label9.Location = new Point(39, 342);
+            label9.Name = "label9";
+            label9.Size = new Size(71, 15);
+            label9.TabIndex = 24;
+            label9.Text = "Процедуры";
+            // 
+            // label10
+            // 
+            label10.AutoSize = true;
+            label10.Location = new Point(57, 250);
+            label10.Name = "label10";
+            label10.Size = new Size(54, 15);
+            label10.TabIndex = 25;
+            label10.Text = "Жалобы";
             // 
             // CreatePacient
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1007, 544);
+            ClientSize = new Size(463, 544);
+            Controls.Add(label10);
+            Controls.Add(label9);
+            Controls.Add(label8);
             Controls.Add(textBox5);
             Controls.Add(textBox3);
             Controls.Add(maskedTextBox3);
@@ -282,5 +315,8 @@
         private MaskedTextBox maskedTextBox3;
         private TextBox textBox3;
         private TextBox textBox5;
+        private Label label8;
+        private Label label9;
+        private Label label10;
     }
 }

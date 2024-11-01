@@ -41,7 +41,7 @@ namespace KursFront.nurse
                         ProcedureCardId = pc.Id,
                         // Объединяем названия процедур и их длительности в одну строку
                         ProcedureName = string.Join(", ", pc.Procedures.Select(p => $"{p.Name} (Длительность: {p.Length}) (Дата: {p.Time})")),
-                     
+
                     }))
                     .Distinct()
                     .ToList();
@@ -116,6 +116,33 @@ namespace KursFront.nurse
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            Close();
+            main.CurrentUser = null;
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void NurseMain_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            string searchQuery = textBox1.Text;
+            LoadData(searchQuery);
         }
     }
 }

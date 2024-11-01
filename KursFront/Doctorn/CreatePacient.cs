@@ -19,6 +19,7 @@ namespace KursFront.Doctorn
             InitializeComponent();
         }
 
+
         private void toolStripContainer1_ContentPanel_Load(object sender, EventArgs e)
         {
 
@@ -28,6 +29,8 @@ namespace KursFront.Doctorn
         {
             Close();
         }
+        //TODO: Доработать напильником
+        // Создать нового пациента 
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -48,35 +51,54 @@ namespace KursFront.Doctorn
             string[] Zhalobi = textBox3.Text.Split(',');
             string[] Diseases = textBox5.Text.Split(',');
 
-            //TODO: Доработать напильником
             // Создать нового пациента  
             Pacient newPacient = new Pacient();
             newPacient.New(name, surname, lastname, email, birthDate, snils, phone);
 
-            Kursach.User user = new Kursach.User();
-            user.Register(email, "password");
-
-            Kursach.Doctor doctor = new Kursach.Doctor();
-            doctor.Add(name, surname, lastname, email, birthDate, "password", snils, phone, user);
-
-
-
-            Procedure_Card procedure_Card = new Procedure_Card();
-            procedure_Card.New(Zhalobi, newPacient, doctor, Diseases);
-
-            // Сохранить пациента в базу данных с использованием Entity Framework  
-            using (var context = new Ctx())
+            // Получить текущего пользователя из сессии
+            Guid currentUserId = GetCurrentUserId();
+            if (currentUserId == Guid.Empty)
             {
-
-                context.pacients.Add(newPacient);
-                context.procedurecards.Add(procedure_Card);
-                context.doctors.Add(doctor);
-                context.users.Add(user);
-                context.SaveChanges();
+                MessageBox.Show("No logged-in user found.");
+                return;
             }
 
-            Close();
+            // Найти доктора по идентификатору пользователя
+            Doctor currentDoctor;
+            using (var context = new Ctx())
+            {
+                currentDoctor = context.doctors.FirstOrDefault(d => d.UserId == currentUserId);
+                if (currentDoctor == null)
+                {
+                    MessageBox.Show("No doctor found for the current user.");
+                    return;
+                }
+
+                // Создать карту процедур
+                Procedure_Card procedure_Card = new Procedure_Card();
+                procedure_Card.New(Zhalobi, newPacient, currentDoctor, Diseases);
+
+                // Сохранить пациента и карту процедур в базу данных
+                if (context.pacients.Any(p => p.Snils == newPacient.Snils))
+                {
+                    MessageBox.Show("A patient with this SNILS already exists.");
+                    return;
+                }
+                context.pacients.Add(newPacient);
+                context.procedurecards.Add(procedure_Card);
+                context.SaveChanges();
+
+
+                Close();
+            } 
         }
+    
+            private Guid GetCurrentUserId()
+            {
+                // Реализуйте метод для получения идентификатора текущего пользователя из сессии
+                // Предположим, что текущий пользователь сохраняется в статическом свойстве MainForm.CurrentUser
+                return main.CurrentUser?.Id ?? Guid.Empty;
+            }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {

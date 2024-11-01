@@ -1,6 +1,6 @@
 ﻿
 
-namespace KursFront.Doctor
+namespace KursFront.Doctorn
 {
     partial class DoctorMain
     {
@@ -54,6 +54,8 @@ namespace KursFront.Doctor
             zhalobiBindingSource2 = new BindingSource(components);
             procedureCardBindingSource1 = new BindingSource(components);
             listBox1 = new ListBox();
+            label1 = new Label();
+            button4 = new Button();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pacientBindingSource).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pacientBindingSource1).BeginInit();
@@ -71,7 +73,7 @@ namespace KursFront.Doctor
             button1.Name = "button1";
             button1.Size = new Size(151, 60);
             button1.TabIndex = 0;
-            button1.Text = "Create Pacient";
+            button1.Text = "Добавить пациента";
             button1.UseVisualStyleBackColor = true;
             button1.Click += button1_Click;
             // 
@@ -159,7 +161,7 @@ namespace KursFront.Doctor
             // 
             // textBox1
             // 
-            textBox1.Location = new Point(1288, 144);
+            textBox1.Location = new Point(1288, 177);
             textBox1.Name = "textBox1";
             textBox1.Size = new Size(151, 23);
             textBox1.TabIndex = 5;
@@ -167,7 +169,7 @@ namespace KursFront.Doctor
             // 
             // button3
             // 
-            button3.Location = new Point(1288, 173);
+            button3.Location = new Point(1288, 206);
             button3.Name = "button3";
             button3.Size = new Size(151, 23);
             button3.TabIndex = 6;
@@ -213,11 +215,32 @@ namespace KursFront.Doctor
             listBox1.TabIndex = 8;
             listBox1.SelectedIndexChanged += listBox1_SelectedIndexChanged;
             // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(1288, 159);
+            label1.Name = "label1";
+            label1.Size = new Size(42, 15);
+            label1.TabIndex = 9;
+            label1.Text = "Снилс";
+            // 
+            // button4
+            // 
+            button4.Location = new Point(1288, 372);
+            button4.Name = "button4";
+            button4.Size = new Size(151, 66);
+            button4.TabIndex = 10;
+            button4.Text = "Выйти";
+            button4.UseVisualStyleBackColor = true;
+            button4.Click += button4_Click;
+            // 
             // DoctorMain
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1451, 450);
+            Controls.Add(button4);
+            Controls.Add(label1);
             Controls.Add(listBox1);
             Controls.Add(button3);
             Controls.Add(textBox1);
@@ -282,5 +305,7 @@ namespace KursFront.Doctor
         private BindingSource zhalobiBindingSource2;
         private BindingSource procedureCardBindingSource2;
         private ListBox listBox1;
+        private Label label1;
+        private Button button4;
     }
 }

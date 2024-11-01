@@ -16,21 +16,25 @@ namespace KursFront.Doctorn
             textBox2 = new TextBox();
             textBox4 = new TextBox();
             dateTimePicker1 = new DateTimePicker();
+            label1 = new Label();
+            label2 = new Label();
+            label3 = new Label();
+            button2 = new Button();
             SuspendLayout();
             // 
             // button1
             // 
-            button1.Location = new Point(12, 409);
+            button1.Location = new Point(141, 387);
             button1.Name = "button1";
-            button1.Size = new Size(75, 23);
+            button1.Size = new Size(108, 45);
             button1.TabIndex = 0;
-            button1.Text = "button1";
+            button1.Text = "Создать";
             button1.UseVisualStyleBackColor = true;
             button1.Click += button1_Click;
             // 
             // textBox2
             // 
-            textBox2.Location = new Point(12, 85);
+            textBox2.Location = new Point(12, 196);
             textBox2.Name = "textBox2";
             textBox2.Size = new Size(231, 23);
             textBox2.TabIndex = 2;
@@ -38,7 +42,7 @@ namespace KursFront.Doctorn
             // 
             // textBox4
             // 
-            textBox4.Location = new Point(12, 12);
+            textBox4.Location = new Point(12, 141);
             textBox4.Name = "textBox4";
             textBox4.Size = new Size(231, 23);
             textBox4.TabIndex = 4;
@@ -48,26 +52,72 @@ namespace KursFront.Doctorn
             // 
             dateTimePicker1.CustomFormat = "15:56";
             dateTimePicker1.Format = DateTimePickerFormat.Time;
-            dateTimePicker1.Location = new Point(12, 114);
+            dateTimePicker1.Location = new Point(12, 252);
             dateTimePicker1.Name = "dateTimePicker1";
             dateTimePicker1.Size = new Size(231, 23);
             dateTimePicker1.TabIndex = 6;
             dateTimePicker1.Value = new DateTime(2024, 10, 28, 15, 56, 28, 0);
             dateTimePicker1.ValueChanged += dateTimePicker1_ValueChanged;
             // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(12, 123);
+            label1.Name = "label1";
+            label1.Size = new Size(42, 15);
+            label1.TabIndex = 7;
+            label1.Text = "Снилс";
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Location = new Point(12, 178);
+            label2.Name = "label2";
+            label2.Size = new Size(124, 15);
+            label2.TabIndex = 8;
+            label2.Text = "Название процедуры";
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Location = new Point(12, 234);
+            label3.Name = "label3";
+            label3.Size = new Size(84, 15);
+            label3.TabIndex = 9;
+            label3.Text = "Длительность";
+            // 
+            // button2
+            // 
+            button2.Location = new Point(12, 387);
+            button2.Name = "button2";
+            button2.Size = new Size(123, 45);
+            button2.TabIndex = 10;
+            button2.Text = "Отменить";
+            button2.UseVisualStyleBackColor = true;
+            button2.Click += button2_Click_1;
+            // 
             // CreateProcedure
             // 
-            ClientSize = new Size(704, 444);
+            ClientSize = new Size(261, 444);
+            Controls.Add(button2);
+            Controls.Add(label3);
+            Controls.Add(label2);
+            Controls.Add(label1);
             Controls.Add(dateTimePicker1);
             Controls.Add(textBox4);
             Controls.Add(textBox2);
             Controls.Add(button1);
             Name = "CreateProcedure";
+            Load += CreateProcedure_Load;
             ResumeLayout(false);
             PerformLayout();
         }
 
         private DateTimePicker dateTimePicker1;
+        private Label label1;
+        private Label label2;
+        private Label label3;
+        private Button button2;
         private Button button1;
 
         private void button1_Click(object sender, EventArgs e)
@@ -75,7 +125,7 @@ namespace KursFront.Doctorn
 
 
 
-            
+
             using (var context = new Ctx())
             {
                 var snils = uint.Parse(textBox4.Text); // Замените на нужный СНИЛС
@@ -114,7 +164,7 @@ namespace KursFront.Doctorn
 
         private void button2_Click(object sender, EventArgs e)
         {
-            
+
 
         }
 
@@ -148,6 +198,16 @@ namespace KursFront.Doctorn
         private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void CreateProcedure_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button2_Click_1(object sender, EventArgs e)
+        {
+            Close();
         }
     }
 }

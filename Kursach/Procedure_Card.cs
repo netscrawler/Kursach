@@ -27,7 +27,7 @@ namespace Kursach
                     ? string.Join(", ", Diseases)
                     : "No diseases";
 
-                return $"{pacientName} - {doctorName} | Complaints: {zhalobiText} | Diseases: {diseasesText}";
+                return $"{pacientName} - {doctorName} | Жалобы: {zhalobiText} | Диагнозы: {diseasesText}";
             }
         }
 

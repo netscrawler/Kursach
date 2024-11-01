@@ -28,8 +28,6 @@ namespace Kursach
         public DbSet<Nurse> nurses { get; set; }
         public DbSet<User> users { get; set; }
 
-
-
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {
             options.UseNpgsql(_connectionString);
@@ -37,7 +35,6 @@ namespace Kursach
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-
             modelBuilder.Entity<Procedure>(entity =>
             {
                 entity.HasKey(e => e.Id);
@@ -46,7 +43,6 @@ namespace Kursach
                 entity.Property(e => e.Time).IsRequired();
             });
 
-            // Настройка модели для класса Cabinet
             modelBuilder.Entity<Cabinet>(entity =>
             {
                 entity.HasKey(e => e.Id);
@@ -55,6 +51,7 @@ namespace Kursach
                 entity.Property(e => e.Close).IsRequired();
                 entity.Property(e => e.Weekend).IsRequired();
             });
+
             modelBuilder.Entity<User>(entity =>
             {
                 entity.HasKey(e => e.Id);
@@ -71,6 +68,7 @@ namespace Kursach
                     .HasForeignKey<Nurse>(n => n.Id)
                     .IsRequired(false);
             });
+
             modelBuilder.Entity<Doctor>(entity =>
             {
                 entity.HasKey(e => e.Id);
@@ -83,6 +81,7 @@ namespace Kursach
                 entity.Property(e => e.Phone).IsRequired();
                 entity.HasOne(e => e.User).WithOne().IsRequired(false);
             });
+
             modelBuilder.Entity<Nurse>(entity =>
             {
                 entity.HasKey(e => e.Id);
@@ -95,6 +94,7 @@ namespace Kursach
                 entity.Property(e => e.Phone).IsRequired();
                 entity.HasOne(e => e.User).WithOne().IsRequired(false);
             });
+
             modelBuilder.Entity<Admin>(entity =>
             {
                 entity.HasKey(e => e.Id);
@@ -107,6 +107,7 @@ namespace Kursach
                 entity.Property(e => e.Phone).IsRequired();
                 entity.HasOne(e => e.User).WithOne().IsRequired(false);
             });
+
             modelBuilder.Entity<Pacient>(entity =>
             {
                 entity.HasKey(e => e.Id);
@@ -119,6 +120,7 @@ namespace Kursach
                 entity.Property(e => e.Phone).IsRequired();
                 entity.HasMany(e => e.ProcedureCards).WithOne().IsRequired();
             });
+
             modelBuilder.Entity<Procedure_Card>(entity =>
             {
                 entity.HasKey(e => e.Id);
@@ -128,7 +130,6 @@ namespace Kursach
                 entity.HasOne(e => e.Doctor).WithMany().IsRequired(false);
             });
 
-            // Настройка модели для класса Procedures_History
             modelBuilder.Entity<Procedures_History>(entity =>
             {
                 entity.HasKey(e => e.Id);
@@ -136,9 +137,8 @@ namespace Kursach
                 entity.HasMany(e => e.Procedures).WithMany();
                 entity.HasOne(e => e.Card).WithMany(e => e.Procedures_History).IsRequired();
             });
+
             base.OnModelCreating(modelBuilder);
-
-
         }
     }
 }

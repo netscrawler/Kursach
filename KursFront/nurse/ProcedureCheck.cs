@@ -61,7 +61,33 @@ namespace KursFront.nurse
 
         private void button1_Click(object sender, EventArgs e)
         {
+            ulong patientSnils;
+            if (!ulong.TryParse(textBox1.Text, out patientSnils))
+            {
+                MessageBox.Show("Неверный формат СНИЛС.");
+                return;
+            }
+            string procedureName = textBox2.Text;
 
+            using (var context = new Ctx())
+            {
+                var procedure = context.pacients
+                    .Include(p => p.ProcedureCards)
+                        .ThenInclude(pc => pc.Procedures)
+                    .Where(p => p.Snils == patientSnils)
+                    .SelectMany(p => p.ProcedureCards)
+                    .SelectMany(pc => pc.Procedures)
+                    .FirstOrDefault(p => p.Name == procedureName);
+
+                if (procedure != null)
+                {
+                    MessageBox.Show($"Процедура найдена: {procedure.Name}, Дата: {procedure.Time}, Длительность: {procedure.Length}");
+                }
+                else
+                {
+                    MessageBox.Show("Процедура не найдена.");
+                }
+            }
         }
 
         private void textBox2_TextChanged(object sender, EventArgs e)
@@ -76,15 +102,77 @@ namespace KursFront.nurse
 
         private void button3_Click(object sender, EventArgs e)
         {
-
+            this.Close();
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
+            ulong patientSnils;
+            if (!ulong.TryParse(textBox1.Text, out patientSnils))
+            {
+                MessageBox.Show("Неверный формат СНИЛС.");
+                return;
+            }
+            string procedureName = textBox2.Text;
+            DateTime procedureDate = dateTimePicker1.Value.ToUniversalTime().AddHours(3); // Convert to UTC  
+
+            using (var context = new Ctx())
+            {
+                var procedure = context.pacients
+                    .Include(p => p.ProcedureCards)
+                        .ThenInclude(pc => pc.Procedures)
+                    .Where(p => p.Snils == patientSnils)
+                    .SelectMany(p => p.ProcedureCards)
+                    .SelectMany(pc => pc.Procedures)
+                    .FirstOrDefault(p => p.Name == procedureName);
+
+                if (procedure != null)
+                {
+                    // Получаем карту процедур, к которой относится процедура
+                    var procedureCard = context.procedurecards
+                        .Include(pc => pc.Procedures)
+                        .FirstOrDefault(pc => pc.Procedures.Any(pr => pr.Id == procedure.Id));
+
+                    if (procedureCard != null)
+                    {
+                        // Удаляем процедуру из текущих процедур  
+                        context.procedures.Remove(procedure);
+
+                        // Переносим процедуру в историю процедур  
+                        var procedureHistory = new Procedures_History
+                        {
+                            Date = procedureDate,
+                            Card = procedureCard
+                        };
+                        context.procedureshistories.Add(procedureHistory);
+
+                        context.SaveChanges();
+                        LoadData();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Карта процедур не найдена.");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show($"Процедура не найдена. СНИЛС: {patientSnils}, Имя процедуры: {procedureName}");
+                }
+            }
+        }
+
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
 
         }
 
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ProcedureCheck_Load(object sender, EventArgs e)
         {
 
         }
